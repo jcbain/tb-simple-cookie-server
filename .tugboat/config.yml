@@ -1,8 +1,17 @@
 services:
-  node:
-    image: tugboatqa/node:18
-    expose: 3000
-    subpath: true
+  nginx:
+    image: tugboatqa/nginx
+    default: true
+    expose: 80
+    depends: server
+    commands:
+      init:
+        - ln -snf "${TUGBOAT_ROOT}" "${DOCROOT}"
+      build:
+        - cp "${TUGBOAT_ROOT}/tugboat.conf" /etc/nginx/conf.d/default.conf
+  server:
+    image: tugboatqa/debian
+    checkout: true
     commands:
       init:
         - apt-get update
@@ -19,4 +28,4 @@ services:
       build:
         - cd "${TUGBOAT_ROOT}" && npm install
       start:
-        - cd "${TUGBOAT_ROOT}" && npm run start
+        - npm run start &
