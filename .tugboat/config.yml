@@ -17,6 +17,6 @@ services:
       update:
         - cd "${TUGBOAT_ROOT}" && npm install
       build:
-        - cd "${TUGBOAT_ROOT}" && npm run install
+        - cd "${TUGBOAT_ROOT}" && npm install
       start:
         - cd "${TUGBOAT_ROOT}" && npm run start
