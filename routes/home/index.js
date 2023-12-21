@@ -13,4 +13,13 @@ module.exports = async function (fastify, opts) {
     reply.type("text/html");
     return "<body><h1>Hello</h1></body>";
   });
+
+  fastify.get("/cookie", async function (request, reply) {
+    const { tub } = request.cookies;
+    reply.type("text/html");
+    if (!tub) {
+      return "<body><h1>no cookies</h1></body>";
+    }
+    return `<body><h1>Hello ${tub}</h1></body>`;
+  });
 };
