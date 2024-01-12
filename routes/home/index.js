@@ -22,4 +22,8 @@ module.exports = async function (fastify, opts) {
     }
     return `<body><h1>Hello ${tub}</h1></body>`;
   });
+
+  fastify.get("/special", async function (request, reply) {
+    reply.header("location", "hållo").redirect("/home");
+  });
 };
