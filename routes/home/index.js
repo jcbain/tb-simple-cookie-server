@@ -1,6 +1,8 @@
 "use strict";
 const cookie = require("@fastify/cookie");
 
+const { TUGBOAT_DEFAULT_SERVICE_URL } = process.env;
+
 module.exports = async function (fastify, opts) {
   fastify.register(cookie, {
     secret: "my-secret", // for cookies signature
@@ -23,9 +25,16 @@ module.exports = async function (fastify, opts) {
     return `<body><h1>Hello ${tub}</h1></body>`;
   });
 
-  fastify.get("/special", async function (request, reply) {
-    reply.redirect(
-      "/special-character-hqs9ryogezlqkhybtzrbjmgmycodluvy/server/hållo"
-    );
+  fastify.get("/hello", async function (request, reply) {
+    reply.type("text/html");
+    return "<body><h1>Hello</h1></body>";
+  });
+
+  fastify.get("/character/invalid", async function (request, reply) {
+    reply.redirect(`${TUGBOAT_DEFAULT_SERVICE_URL}/server/home/hållo`);
+  });
+
+  fastify.get("/character/valid", async function (request, reply) {
+    reply.redirect(`${TUGBOAT_DEFAULT_SERVICE_URL}/server/home/hello`);
   });
 };
