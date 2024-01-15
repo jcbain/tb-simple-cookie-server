@@ -24,6 +24,8 @@ module.exports = async function (fastify, opts) {
   });
 
   fastify.get("/special", async function (request, reply) {
-    reply.header("location", "hållo").redirect("/home");
+    reply.redirect(
+      "/special-character-hqs9ryogezlqkhybtzrbjmgmycodluvy/server/hållo"
+    );
   });
 };
